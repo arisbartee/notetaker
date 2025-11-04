@@ -8,7 +8,8 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:medium.com)",
-      "Read(//Users/arisbartee/.gradle/caches/**)"
+      "Read(//Users/arisbartee/.gradle/caches/**)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []
