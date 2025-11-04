@@ -15,6 +15,7 @@ espresso = "3.7.0"
 archTesting = "2.2.0"
 mockito = "5.8.0"
 mockitoKotlin = "5.2.1"
+ktlint = "12.1.1"
 compileSdk = "36"
 minSdk = "35"
 targetSdk = "36"
@@ -55,6 +56,7 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 [bundles]
 compose = ["androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-material-icons-core", "androidx-material-icons-extended"]

@@ -6,7 +6,10 @@ import com.example.notetaker.data.NoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -19,7 +22,6 @@ import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class NoteViewModelTest {
-
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -46,10 +48,11 @@ class NoteViewModelTest {
 
     @Test
     fun `allNotes should return flow from repository`() {
-        val testNotes = listOf(
-            Note(1L, "Title 1", "Content 1", System.currentTimeMillis()),
-            Note(2L, "Title 2", "Content 2", System.currentTimeMillis())
-        )
+        val testNotes =
+            listOf(
+                Note(1L, "Title 1", "Content 1", System.currentTimeMillis()),
+                Note(2L, "Title 2", "Content 2", System.currentTimeMillis())
+            )
 
         whenever(repository.getAllNotes()).thenReturn(flowOf(testNotes))
         val newViewModel = NoteViewModel(repository)

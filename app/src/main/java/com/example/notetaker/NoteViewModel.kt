@@ -2,16 +2,10 @@ package com.example.notetaker
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.example.notetaker.data.Note
 import com.example.notetaker.data.NoteRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
-
     val allNotes = repository.getAllNotes()
 
     suspend fun getNoteById(id: Long): Note? = repository.getNoteById(id)

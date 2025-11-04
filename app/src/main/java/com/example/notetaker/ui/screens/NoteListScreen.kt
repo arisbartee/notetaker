@@ -18,11 +18,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteListScreen(
-    notes: List<Note>,
-    onNoteClick: (Long) -> Unit,
-    onAddNote: () -> Unit
-) {
+fun NoteListScreen(notes: List<Note>, onNoteClick: (Long) -> Unit, onAddNote: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -39,7 +35,8 @@ fun NoteListScreen(
     ) { paddingValues ->
         if (notes.isEmpty()) {
             Box(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
                 contentAlignment = Alignment.Center
@@ -52,7 +49,8 @@ fun NoteListScreen(
             }
         } else {
             LazyColumn(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
                 contentPadding = PaddingValues(16.dp),
@@ -70,18 +68,17 @@ fun NoteListScreen(
 }
 
 @Composable
-fun NoteItem(
-    note: Note,
-    onClick: () -> Unit
-) {
+fun NoteItem(note: Note, onClick: () -> Unit) {
     Card(
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
             .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {

@@ -13,7 +13,6 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 class NoteRepositoryTest {
-
     @Mock
     private lateinit var noteDao: NoteDao
 
@@ -27,10 +26,11 @@ class NoteRepositoryTest {
 
     @Test
     fun `getAllNotes should return notes from dao`() {
-        val notes = listOf(
-            Note(1, "Title 1", "Content 1"),
-            Note(2, "Title 2", "Content 2")
-        )
+        val notes =
+            listOf(
+                Note(1, "Title 1", "Content 1"),
+                Note(2, "Title 2", "Content 2")
+            )
         whenever(noteDao.getAllNotes()).thenReturn(flowOf(notes))
 
         val result = repository.getAllNotes()

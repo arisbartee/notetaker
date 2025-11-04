@@ -1,7 +1,13 @@
 package com.example.notetaker
 
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.assertDoesNotExist
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextClearance
+import androidx.compose.ui.test.performTextInput
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -18,7 +24,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class NoteNavigationTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -29,10 +34,11 @@ class NoteNavigationTest {
     @Before
     fun setup() {
         // Create in-memory database for testing
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            NoteDatabase::class.java
-        ).allowMainThreadQueries().build()
+        database =
+            Room.inMemoryDatabaseBuilder(
+                ApplicationProvider.getApplicationContext(),
+                NoteDatabase::class.java
+            ).allowMainThreadQueries().build()
 
         repository = NoteRepository(database.noteDao())
         viewModel = NoteViewModel(repository)

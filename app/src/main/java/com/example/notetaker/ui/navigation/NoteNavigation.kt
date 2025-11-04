@@ -1,9 +1,9 @@
 package com.example.notetaker.ui.navigation
 
 import androidx.compose.runtime.*
-import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.example.notetaker.NoteViewModel
 import com.example.notetaker.data.Note
 import com.example.notetaker.ui.screens.NoteDetailScreen
@@ -55,10 +55,7 @@ fun NoteNavigation(viewModel: NoteViewModel) {
 }
 
 @Composable
-private fun NoteListContent(
-    viewModel: NoteViewModel,
-    onNavigateToDetail: (Long) -> Unit
-) {
+private fun NoteListContent(viewModel: NoteViewModel, onNavigateToDetail: (Long) -> Unit) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     val notes by viewModel.allNotes.collectAsState(initial = emptyList())
@@ -85,11 +82,7 @@ private fun NoteListContent(
 }
 
 @Composable
-private fun NoteDetailContent(
-    viewModel: NoteViewModel,
-    noteId: Long,
-    onNavigateBack: () -> Unit
-) {
+private fun NoteDetailContent(viewModel: NoteViewModel, noteId: Long, onNavigateBack: () -> Unit) {
     var note by remember { mutableStateOf<Note?>(null) }
     var title by remember { mutableStateOf("") }
     var content by remember { mutableStateOf("") }
@@ -124,13 +117,14 @@ private fun NoteDetailContent(
                     try {
                         isSaving = true
                         errorMessage = null
-                        val noteToSave = note?.copy(
-                            title = title,
-                            content = content
-                        ) ?: Note(
-                            title = title,
-                            content = content
-                        )
+                        val noteToSave =
+                            note?.copy(
+                                title = title,
+                                content = content
+                            ) ?: Note(
+                                title = title,
+                                content = content
+                            )
                         viewModel.saveNote(noteToSave)
                         onNavigateBack()
                     } catch (e: Exception) {
