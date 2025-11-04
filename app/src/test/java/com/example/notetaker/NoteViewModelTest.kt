@@ -13,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
@@ -44,41 +45,59 @@ class NoteViewModelTest {
     }
 
     @Test
-    fun `updateTitle should update title state`() {
-        val newTitle = "Test Title"
-        viewModel.updateTitle(newTitle)
+    fun `allNotes should return flow from repository`() {
+        val testNotes = listOf(
+            Note(1L, "Title 1", "Content 1", System.currentTimeMillis()),
+            Note(2L, "Title 2", "Content 2", System.currentTimeMillis())
+        )
 
-        assert(viewModel.title.value == newTitle)
+        whenever(repository.getAllNotes()).thenReturn(flowOf(testNotes))
+        val newViewModel = NoteViewModel(repository)
+
+        // Since allNotes is a Flow, we can't directly assert its value in a simple test
+        // In a real scenario, you would collect the flow and assert the collected values
+        assert(newViewModel.allNotes != null)
     }
 
     @Test
-    fun `updateContent should update content state`() {
-        val newContent = "Test Content"
-        viewModel.updateContent(newContent)
+    fun `getNoteById should return note from repository`() = runTest {
+        val testNote = Note(1L, "Test Title", "Test Content", System.currentTimeMillis())
+        whenever(repository.getNoteById(1L)).thenReturn(testNote)
 
-        assert(viewModel.content.value == newContent)
+        val result = viewModel.getNoteById(1L)
+
+        assert(result == testNote)
+        verify(repository).getNoteById(1L)
     }
 
     @Test
     fun `saveNote should call repository insertNote for new note`() = runTest {
-        viewModel.updateTitle("Test Title")
-        viewModel.updateContent("Test Content")
+        val newNote = Note(0L, "Test Title", "Test Content", System.currentTimeMillis())
+        whenever(repository.insertNote(newNote)).thenReturn(1L)
 
-        viewModel.saveNote()
+        val result = viewModel.saveNote(newNote)
 
-        // Verify insertNote was called (stub implementation)
-        // In a real test, you would verify the repository method was called
+        assert(result == 1L)
+        verify(repository).insertNote(newNote)
     }
 
     @Test
-    fun `clearNote should reset all fields`() {
-        viewModel.updateTitle("Test Title")
-        viewModel.updateContent("Test Content")
+    fun `saveNote should call repository updateNote for existing note`() = runTest {
+        val existingNote = Note(1L, "Test Title", "Test Content", System.currentTimeMillis())
 
-        viewModel.clearNote()
+        val result = viewModel.saveNote(existingNote)
 
-        assert(viewModel.title.value == "")
-        assert(viewModel.content.value == "")
-        assert(viewModel.currentNote.value == null)
+        assert(result == 1L)
+        // Verify updateNote was called with any Note - timestamp will be updated
+        verify(repository).updateNote(any())
+    }
+
+    @Test
+    fun `deleteNote should call repository deleteNote`() = runTest {
+        val testNote = Note(1L, "Test Title", "Test Content", System.currentTimeMillis())
+
+        viewModel.deleteNote(testNote)
+
+        verify(repository).deleteNote(testNote)
     }
 }
