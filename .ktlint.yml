@@ -1,0 +1,63 @@
+# KtLint configuration for Android project
+# https://pinterest.github.io/ktlint/latest/rules/configuration-ktlint/
+
+# Enable Android rule set
+android: true
+
+# Disabled rules for Android compatibility
+disabled_rules:
+  - "filename"                    # Android files don't always match class names (e.g., MainActivity.kt)
+  - "no-wildcard-imports"         # Android commonly uses wildcard imports for UI components
+  - "max-line-length"             # Will be handled by .editorconfig
+
+# Custom rule configuration
+rule:
+  # Standard rules
+  standard:
+    # Allow trailing commas in function calls and declarations
+    trailing-comma-on-call-site: enabled
+    trailing-comma-on-declaration-site: enabled
+
+    # Import organization
+    import-ordering: enabled
+
+    # Indentation
+    indent:
+      size: 4
+      continuation_indent_size: 8
+
+    # Line length (matches .editorconfig)
+    max-line-length:
+      length: 120
+      ignore_back_ticked_identifier: true
+
+    # Function naming
+    function-naming:
+      ignore_when_annotated_with: "Composable"  # Allow PascalCase for Composable functions
+
+    # Multiline expressions
+    multiline-if-else: enabled
+    chain-wrapping: enabled
+
+    # Spacing rules
+    no-blank-line-before-rbrace: enabled
+    no-empty-class-body: enabled
+    no-unit-return: enabled
+
+  # Android-specific rules
+  android:
+    # Resource references
+    android-resource-ordering: enabled
+
+    # Manifest formatting
+    android-manifest-ordering: enabled
+
+# File patterns to include/exclude
+patterns:
+  include:
+    - "**/*.kt"
+    - "**/*.kts"
+  exclude:
+    - "**/build/**"
+    - "**/generated/**"
+    - "**/bin/**"

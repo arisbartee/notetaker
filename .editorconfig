@@ -1,0 +1,74 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Kotlin files
+[*.{kt,kts}]
+indent_style = space
+indent_size = 4
+continuation_indent_size = 8
+max_line_length = 120
+ij_kotlin_packages_to_use_import_on_demand = unset
+ij_kotlin_name_count_to_use_star_import = 2147483647
+ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
+
+# Gradle files
+[*.gradle.kts]
+indent_style = space
+indent_size = 4
+
+# XML files (Android layouts, manifests, etc.)
+[*.xml]
+indent_style = space
+indent_size = 4
+
+# JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Properties files
+[*.properties]
+indent_style = space
+indent_size = 4
+
+# Markdown files
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+
+# TOML files (for gradle/libs.versions.toml)
+[*.toml]
+indent_style = space
+indent_size = 2
+
+# Ktlint-specific rules for Android development
+[*.{kt,kts}]
+# Rule configuration (new format)
+ktlint_standard_function-naming = disabled
+ktlint_standard_filename = disabled
+ktlint_standard_no-wildcard-imports = disabled
+ktlint_standard_property-naming = disabled
+ktlint_code_style = android_studio
+ktlint_experimental = disabled
+ktlint_function_naming_ignore_when_annotated_with = Composable
+
+# Android-specific formatting
+ij_kotlin_allow_trailing_comma = false
+ij_kotlin_allow_trailing_comma_on_call_site = false
+
+# Import organization for Android
+ij_kotlin_imports_layout = *, java.**, javax.**, kotlin.**, ^
